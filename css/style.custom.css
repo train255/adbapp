@@ -1,0 +1,11 @@
+.main.container {
+	position: fixed;
+	left: 260px;
+	right: 0;
+	bottom: 0;
+	top: 0;
+}
+
+.frame-top.ui.menu {
+	border-radius: inherit;
+}

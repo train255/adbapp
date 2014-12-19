@@ -1,0 +1,12 @@
+{
+  "name": "adb_app",
+  "version": "1.0.0",
+  "description": "Adb App",
+  "main": "index.html",
+  "author": "",
+  "license": "GPLv3",
+  "dependencies": {
+    "adbkit": "^2.1.5",
+    "bluebird": "^2.3.11",
+  }
+}
