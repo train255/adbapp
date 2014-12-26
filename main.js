@@ -1,16 +1,21 @@
 var trainCloud = angular.module('trainCloud', [
 	'ui.router',
-	'containerController'
+	'containerController', 'homeController'
 ]);
 
 trainCloud.config(function ($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.when('', '/');
+	$urlRouterProvider.when('', '/home');
 	$urlRouterProvider.otherwise('/not_found');
 	$stateProvider
 		.state('app', {
 			url: '/',
 			templateUrl: 'templates/container.html',
 			controller: 'ContainerCtrl'
+		})
+		.state('app.home', {
+			url: '/home',
+			templateUrl: 'templates/home.html',
+			controller: 'HomeCtrl'
 		})
 });
 
