@@ -1,14 +1,15 @@
 <div id="menu" class="ui vertical inverted sidebar menu left uncover visible" style="">
 	<div class="item">
-		<a href="/" class="ui logo icon image">
-			<img src="/images/logo.png">
+		<a href="" class="ui logo icon">
+			<i class="android icon"></i>
 		</a>
-		<a href="/"><b>adb App</b></a>
+		<a href=""><b>adb App</b></a>
 	</div>
-	<a href="#/" class="item">
+
+	<a ui-sref-active="active" ui-sref="app.home" class="item">
 		<i class="home icon"></i>  <b>Home</b>
 	</a>
-	<a href="#/apps" class="item">
+	<a ui-sref-active="active" ui-sref="app.device" class="item">
 		<i class="block layout icon"></i>  <b>Apps</b>
 	</a>
 </div>
@@ -37,31 +38,5 @@
 
 		</div>
 	</div>
+	<div class="body-content" ui-view></div>
 </div>
-
-<!--
-{{ device_model }}
-<br/>
-
-<div class="ui blue menu">
-		<a class="active item">
-		<i class="home icon"></i> Home
-		</a>
-		<a ng-click="getListPackage()" class="item">
-		<i class="block layout icon"></i> Apps
-		</a>
-	</div>
-
-<table class="ui table">
-	<thead>
-		<tr>
-			<th>Name</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="app in apps">
-			<td>{{ app }}</td>
-		</tr>
-	</tbody>
-</table>
--->

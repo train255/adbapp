@@ -9,3 +9,26 @@
 .frame-top.ui.menu {
 	border-radius: inherit;
 }
+
+.body-content {
+	position: fixed;
+	left: 260px;
+	right: 0;
+	bottom: 0;
+	top: 35px;
+	padding: 20px;
+	overflow: auto;
+}
+
+.body-content .list-item {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	bottom: 20px;
+	top: 75px;
+	overflow: auto;
+}
+
+.ui.logo.icon {
+	font-size: 26px;
+}

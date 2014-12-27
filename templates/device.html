@@ -1,0 +1,73 @@
+<button class="ui green basic button" ng-click="chooseFile('#fileDialog')">Install packages</button>
+<input style="display:none;" id="fileDialog" type="file" accept=".apk" multiple />
+
+<button class="ui red basic button" ng-click="removePackages()">Remove packages</button>
+
+
+<div class="list-item">
+	<table class="ui table">
+		<!--
+		<thead>
+			<tr>
+				<th>
+					<input type="checkbox">
+				</th>
+				<th>Package</th>
+			</tr>
+		</thead>
+-->
+		<tbody>
+			<tr ng-repeat="app in apps | filter:notSystemApp ">
+				<td>
+					<input type="checkbox" class="select-package" value="{{ app }}" />
+				</td>
+				<td>{{ app }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="delete-confirm-dialog" class="ui basic modal">
+	<i class="close icon"></i>
+	<div class="header">
+		Archive Old Messages
+	</div>
+	<div class="content">
+		<div class="image">
+			<i class="archive icon"></i>
+		</div>
+		<div class="description">
+			<p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+		</div>
+	</div>
+	<div class="actions">
+		<div class="two fluid ui inverted buttons">
+			<div class="ui red basic cancel inverted button">
+				<i class="remove icon"></i>
+				No
+			</div>
+			<div class="ui green ok basic inverted button">
+				<i class="checkmark icon"></i>
+				Yes
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="progress-dialog" class="ui modal small">
+	<i class="close icon"></i>
+	<div class="header">
+		Install Packages
+	</div>
+	<div class="content">
+		<div class="ui indicating progress" data-value="0" data-total="0" id="progress-bar">
+			<div class="bar">
+				<div class="progress"></div>
+			</div>
+			<div class="label">Adding Photos</div>
+		</div>
+	</div>
+	<div class="actions">
+		<div class="ui button">Cancel</div>
+	</div>
+</div>
