@@ -17,7 +17,7 @@
 		</thead>
 -->
 		<tbody>
-			<tr ng-repeat="app in apps | filter:notSystemApp ">
+			<tr ng-repeat="app in objectPool['device_' + device.device_id].apps">
 				<td>
 					<input type="checkbox" class="select-package" value="{{ app }}" />
 				</td>
@@ -60,11 +60,11 @@
 		Install Packages
 	</div>
 	<div class="content">
-		<div class="ui indicating progress" data-value="0" data-total="0" id="progress-bar">
+		<div class="ui teal progress" data-value="0" data-total="{{ total_app }}" id="progress-bar">
 			<div class="bar">
 				<div class="progress"></div>
 			</div>
-			<div class="label">Adding Photos</div>
+			<div class="label">Adding Packages</div>
 		</div>
 	</div>
 	<div class="actions">

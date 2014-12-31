@@ -3,16 +3,22 @@ deviceController.controller('DeviceCtrl', function ($scope, $rootScope, device) 
 	$scope.cancel_install = false;
 	$scope.app_index = 0;
 	$scope.total_app = 0;
+	$scope.device = device;
 
 	$scope.install_app = function (files) {
-		console.log($scope)
 		$rootScope.client.install(device.device_id, files[$scope.app_index], function (err) {
 			if (!err) {
 				console.log('success');
 			}
 			if (!$scope.cancel_install && $scope.app_index < files.length - 1) {
 				$scope.app_index++;
-				$('#progress-dialog').progress({percent: $scope.app_index});
+				$('#progress-dialog').progress({
+					percent: $scope.app_index,
+					text: {
+						active: 'Adding {value} of {total} packages',
+						success: '{total} Packages Installed!'
+					}
+				});
 				$scope.install_app(files);
 			}
 
@@ -27,16 +33,11 @@ deviceController.controller('DeviceCtrl', function ($scope, $rootScope, device) 
 	$scope.chooseFile = function (ele) {
 		var chooser = $(ele);
 		chooser.change(function (evt) {
-			$('#progress-dialog').modal('show');
-			$('#progress-bar').progress({
-				total: files.length,
-				text: {
-					active: 'Adding {value} of {total} packages',
-					success: '{total} Packages Installed!'
-				}
-			});
 			var files = $(this).val().split(';');
+			$('#progress-dialog').modal('show');
+			$('#progress-bar').progress('increment');
 			$scope.total_app = files.length;
+			$scope.$apply();
 			$scope.install_app(files);
 		});
 		chooser.trigger('click');
@@ -63,15 +64,22 @@ deviceController.controller('DeviceCtrl', function ($scope, $rootScope, device) 
 		}).modal('show');
 	};
 
-	$scope.notSystemApp = function (app) {
-		if (app.split('.').indexOf('android') > -1) {
-			return false;
-		}
-		return true;
-	};
+//	$rootScope.client.getPackages(device.device_id, function (err, packages) {
+//		$scope.apps = packages;
+//		$scope.$apply();
+//	});
 
-	$rootScope.client.getPackages(device.device_id, function (err, packages) {
-		$scope.apps = packages;
-		$scope.$apply();
-	});
+	if (!$rootScope.objectPool['device_' + device.device_id]) {
+		$rootScope.objectPool['device_' + device.device_id] = {
+			apps: []
+		};
+		$rootScope.client.readdir(device.device_id, '/data/app').then(function (files) {
+			files.forEach(function (file) {
+				if (file.isFile() && file.name.split('.').indexOf('android') < 0 && file.name.split('.').indexOf('tmp') < 0) {
+					$rootScope.objectPool['device_' + device.device_id].apps.push(file.name);
+				}
+			});
+			$rootScope.$apply();
+		});
+	}
 });

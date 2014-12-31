@@ -51,27 +51,5 @@ adbApp.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 adbApp.run(function ($rootScope) {
-//	$rootScope.adb = require('adbkit');
-//	$rootScope.client = $rootScope.adb.createClient();
-
-//	$rootScope.client.trackDevices()
-//		.then(function (tracker) {
-//			tracker.on('add', function (device) {
-//				$rootScope.client.getProperties(device.id, function (err, properties) {
-//					$rootScope.device_id = device.id;
-//					$rootScope.device_info = properties;
-//					$rootScope.$apply();
-//				});
-//				console.log('Device %s was plugged in', device.id)
-//			})
-//			tracker.on('remove', function (device) {
-//				console.log('Device %s was unplugged', device.id)
-//			})
-//			tracker.on('end', function () {
-//				console.log('Tracking stopped')
-//			})
-//		})
-//		.catch(function (err) {
-//			console.error('Something went wrong:', err.stack)
-//		})
+	$rootScope.objectPool = {};
 });
