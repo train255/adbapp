@@ -46,7 +46,22 @@ adbApp.config(function ($stateProvider, $urlRouterProvider) {
 		.state('app.device', {
 			url: '/device',
 			templateUrl: 'templates/device.html',
-			controller: 'DeviceCtrl'
+			controller: 'DeviceCtrl',
+			resolve: {
+				files_in_data_app: function ($q, $rootScope, device) {
+					var defer = $q.defer();
+					var files_list = [];
+					$rootScope.client.readdir(device.device_id, '/data/app').then(function (files) {
+						files.forEach(function (file) {
+							if (file.isFile()) {
+								files_list.push(file.name.split('-')[0]);
+							}
+						});
+						defer.resolve(files_list);
+					});
+					return defer.promise;
+				}
+			}
 		})
 });
 
